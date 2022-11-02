@@ -20,3 +20,10 @@ def add_metadata(df:DataFrame, field_dict:dict)->DataFrame:
     for pair in field_dict.items():
         df = df.withColumn(pair[0], F.lit(pair[1]))
     return df
+
+def countCheck(df:DataFrame) ->DataFrame:
+    """
+    Count number of rows in a df
+    """
+    count  = df.count()
+    return count
