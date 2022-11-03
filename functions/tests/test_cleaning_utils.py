@@ -113,3 +113,30 @@ def test_add_metadata():
     })
     # ASSERT 
     pd.testing.assert_frame_equal(left=expected_output_df,right=output_df_as_pd, check_exact=True, check_dtype=False)
+
+def test_countCheck():
+    # ASSEMBLE 
+    test_data = [
+        {
+            "id": 1,
+            "first_name": "Bob",
+            "last_name": "Builder",
+            "age": 24
+        },
+        {
+            "id": 2,
+            "first_name": "Sam",
+            "last_name": "Smith",
+            "age": 41
+        }
+    ]
+
+   
+    spark = SparkSession.builder.getOrCreate()
+    test_df = spark.createDataFrame(map(lambda x: Row(**x), test_data))
+
+    # ACT 
+    output_count = countCheck(df=test_df)
+
+    # ASSERT 
+    assert output_count == 2, f"Expected 2 rows, got {output_count}"
